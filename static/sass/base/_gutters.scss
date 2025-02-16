@@ -1,0 +1,21 @@
+// Definir los tamaños de gutter
+$gutters: (
+  1: 8px,
+  2: 16px,
+  3: 32px,
+  4: 64px,
+  5: 128px
+);
+
+// Generar las clases para gutter-x y gutter-y
+@each $size, $value in $gutters {
+  .gx-#{$size} {
+    --gutter-x: #{$value};
+    column-gap: var(--gutter-x);
+  }
+  
+  .gy-#{$size} {
+    --gutter-y: #{$value};
+    row-gap: var(--gutter-y);
+  }
+}
