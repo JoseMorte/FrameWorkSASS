@@ -1,4 +1,6 @@
-// Definir los tamaños de fuente
+@import "config";
+
+// Tamaños de fuente
 $font-sizes: (
   1: 0.875rem,
   2: 1rem,
@@ -7,7 +9,7 @@ $font-sizes: (
   5: 2rem
 );
 
-// Definir los breakpoints
+// Breakpoints
 $breakpoints: (
   sm: 576px,
   md: 768px,
@@ -15,18 +17,15 @@ $breakpoints: (
   xl: 1200px
 );
 
-// Mixin para generar las clases
-@mixin responsive-font-size($breakpoint, $size, $value) {
-  @media (min-width: $breakpoint) {
-    .fs-#{$breakpoint}-#{$size} {
-      font-size: $value;
-    }
-  }
-}
-
-// Generar las clases con bucles
-@each $size, $value in $font-sizes {
+// Generar clases solo si está habilitado
+@if $generate-responsive-classes {
   @each $breakpoint, $width in $breakpoints {
-    @include responsive-font-size($width, $size, $value);
+    @media (min-width: $width) {
+      @each $size, $value in $font-sizes {
+        .fs-#{$breakpoint}-#{$size} {
+          font-size: $value;
+        }
+      }
+    }
   }
 }
